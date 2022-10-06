@@ -30,8 +30,17 @@ for img in os.listdir(directory):
                 colour = image_left[j][i]
                 #pick on shades of black
                 if colour[0] <= 52 and colour[1] <= 52 and colour[2]<=54:
+                    if counter == 0:
+                        x_first_bounding_box = i
+                        y_first_bounding_box = j 
                     counter +=1
-        y_value.append(float(counter/(original_y * original_x)))
+                    x_last_bounding_box = i 
+                    y_last_bounding_box = j 
+        if (y_first_bounding_box == y_last_bounding_box):
+            y_last_bounding_box += 1
+        if (x_first_bounding_box == x_last_bounding_box):
+            x_last_bounding_box += 1
+        y_value.append(float(counter/(abs(x_last_bounding_box - x_first_bounding_box) * abs(y_last_bounding_box - y_first_bounding_box))))
 #right image
         [y,x,_] = image_right.shape
         counter = 0
@@ -41,7 +50,7 @@ for img in os.listdir(directory):
                 #pick on shades of black
                 if colour[0] <= 52 and colour[1] <= 52 and colour[2]<=54:
                     counter +=1
-        z_value.append(float(counter/(original_y * original_x)))
+        z_value.append(float(counter/(abs(x_last_bounding_box - x_first_bounding_box) * abs(y_last_bounding_box - y_first_bounding_box))))
 
 
 print(" x  \t y  \t z")
