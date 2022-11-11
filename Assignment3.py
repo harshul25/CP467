@@ -7,6 +7,7 @@ directory = 'palm'
 x_value = []
 y_value = []
 z_value = []
+filename = []
 #open every image in the directory
 for img in os.listdir(directory):
     path = os.path.join(directory,img)
@@ -47,11 +48,14 @@ for img in os.listdir(directory):
                 if colour[0] <= 52 and colour[1] <= 52 and colour[2]<=54:
                     counter +=1
         z_value.append(float(counter/(abs(max_x - min_x) * abs(max_y - min_y))))
+        filename.append(img)
 
 
 print(" x  \t y  \t z")
-for i in range(len(x_value)-1):
-    print("{:0.3f}  {:0.3f}  {:0.3f}".format(x_value[i], y_value[i], z_value[i]))
+for i in range(len(x_value)):
+    print("{:0.3f}  {:0.3f}  {:0.3f}  {:s}".format(x_value[i], y_value[i], z_value[i],filename[i]))
+print()
+print(filename)
 
 
 """
